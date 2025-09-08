@@ -1,27 +1,29 @@
-var socket = new WebSocket("http://localhost:8080/ws")
+var socket = new WebSocket("ws://localhost:8080/ws"); // Changed from http to ws
 
-let connect = () => {
+let connect = (cb) => {  // Added cb parameter
   console.log("Attempting Connection...");
 
   socket.onopen = () => {
     console.log("Successfully Connected");
   };
 
-  socket.onmessage = msg => {
-    console.log("on message" + msg);
+  socket.onmessage = (msg) => {
+    console.log("on message", msg);
+    if (cb) {
+      cb(msg);  // Call the callback with the message
+    }
   };
 
-  socket.onclose = event => {
+  socket.onclose = (event) => {
     console.log("Socket Closed Connection: ", event);
   };
 
-  socket.onerror = error => {
+  socket.onerror = (error) => {
     console.log("Socket Error: ", error);
   };
 };
 
-
-let sendMsg = msg => {
+let sendMsg = (msg) => {
   console.log("sending msg: ", msg);
   socket.send(msg);
 };
