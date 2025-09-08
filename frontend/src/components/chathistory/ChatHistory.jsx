@@ -26,7 +26,7 @@ const ChatHistory = ({ chatHistory }) => {
       <h2 className="text-lg font-bold mb-4 text-gray-800">Chat History</h2>
       <div className="messages-container max-h-96 overflow-y-auto">
         {messages.length > 0 ? messages : <p className="text-gray-500">No messages yet</p>}
-      </div>
+      </div>type: "message"
     </div>
   );
 };

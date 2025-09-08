@@ -1,6 +1,6 @@
-var socket = new WebSocket("ws://localhost:8080/ws"); // Changed from http to ws
+var socket = new WebSocket("http://localhost:8080/ws");
 
-let connect = (cb) => {  // Added cb parameter
+let connect = (cb) => {
   console.log("Attempting Connection...");
 
   socket.onopen = () => {
@@ -8,9 +8,9 @@ let connect = (cb) => {  // Added cb parameter
   };
 
   socket.onmessage = (msg) => {
-    console.log("on message", msg);
+    console.log("on message" + msg);
     if (cb) {
-      cb(msg);  // Call the callback with the message
+      cb(msg);
     }
   };
 

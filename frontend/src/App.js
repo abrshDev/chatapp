@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     // Connect to WebSocket and handle incoming messages
     connect((msg) => {
-      console.log("New Message", msg);
+      console.log("New Messagee", msg);
       setChatHistory(prevHistory => [...prevHistory, msg]);
     });
   }, []);
