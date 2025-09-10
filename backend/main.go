@@ -8,20 +8,28 @@ import (
 	"github.com/abrshDev/chatapp/pkg/websocket"
 )
 
-func servews(w http.ResponseWriter, r *http.Request) {
+func servews(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Host)
 
-	ws, err := websocket.Upgrade(w, r)
+	conn, err := websocket.Upgrade(w, r)
 	if err != nil {
 		log.Println(err)
 	}
-	go websocket.Writer(ws)
-	websocket.Reader(ws)
+	client := &websocket.Client{
+		Conn: conn,
+		Pool: pool,
+	}
+
+	pool.Register <- client
+	client.Read()
 }
 
 func setupRoutes() {
-
-	http.HandleFunc("/ws", servews)
+	pool := websocket.NewPool()
+	go pool.Start()
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		servews(pool, w, r)
+	})
 
 }
 func main() {
