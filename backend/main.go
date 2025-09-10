@@ -9,7 +9,7 @@ import (
 )
 
 func servews(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Host)
+	fmt.Println("r.host", r.Host)
 
 	conn, err := websocket.Upgrade(w, r)
 	if err != nil {
@@ -32,6 +32,7 @@ func setupRoutes() {
 	})
 
 }
+
 func main() {
 	setupRoutes()
 	http.ListenAndServe(":8080", nil)
