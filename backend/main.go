@@ -34,6 +34,7 @@ func setupRoutes() {
 }
 
 func main() {
+
 	setupRoutes()
 	http.ListenAndServe(":8080", nil)
 }
