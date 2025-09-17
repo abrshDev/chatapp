@@ -1,0 +1,40 @@
+# ChatApp Backend (Go + Gorilla WebSocket)
+
+This is a simple WebSocket-based chat server written in **Go**. It manages multiple connected clients using a connection pool and broadcasts messages in real time.
+
+---
+
+## 📂 Project Structure
+├── main.go # Entry point – sets up HTTP routes and starts server
+├── pkg
+│ └── websocket
+│ ├── pool.go # Pool struct – manages Register, Unregister, Broadcast
+│ ├── client.go # Client struct and Read() method – handles messages
+
+
+---
+
+## ⚡ Features
+- Accepts WebSocket connections at `ws://localhost:8080/ws`.
+- Tracks multiple connected clients in a pool.
+- Broadcasts messages from one client to **all** others.
+- Notifies connected clients when:
+  - A **new user** joins.
+  - A **user disconnects**.
+- Gracefully unregisters clients on disconnection without stopping the server.
+
+---
+
+## 🛠 Prerequisites
+- [Go](https://go.dev/) 1.18 or later installed.
+- [Gorilla WebSocket](https://github.com/gorilla/websocket) package installed:
+  ```bash
+  go get github.com/gorilla/websocket
+🚀 Running the Server
+
+- 1 Clone the repository
+git clone https://github.com/yourusername/chatapp.git
+cd chatapp
+- 2 Run the server
+go run main.go
+

@@ -2,7 +2,6 @@ package websocket
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/gorilla/websocket"
 )
@@ -26,7 +25,7 @@ func (c *Client) Read() {
 		messagetype, p, err := c.Conn.ReadMessage()
 
 		if err != nil {
-			log.Fatal("error in read:", err)
+			fmt.Println("error in read:", err)
 			return
 		}
 		message := Message{Type: messagetype, Body: string(p)}
