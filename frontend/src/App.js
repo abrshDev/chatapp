@@ -5,18 +5,19 @@ import ChatHistory from './components/chathistory/ChatHistory';
 
 function App() {
   const [chatHistory, setChatHistory] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Connect to WebSocket and handle incoming messages
     connect((msg) => {
-      console.log("New Messagee", msg);
-      setChatHistory(prevHistory => [...prevHistory, msg]);
+      console.log("New Message", msg);
+      setChatHistory(prev => [...prev, msg]);
     });
   }, []);
 
   const send = () => {
-    console.log("hello");
-    sendMsg("hello");
+    if (!message.trim()) return;
+    sendMsg(message);
+    setMessage("");
   }
 
   return (
@@ -24,11 +25,18 @@ function App() {
       <Header/>
       <div className="container mx-auto p-4">
         <ChatHistory chatHistory={chatHistory}/>
+        <input
+          type="text"
+          placeholder="Type a message..."
+          className="w-full p-2 border rounded-lg text-xl"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
         <button 
           onClick={send} 
           className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xl"
         >
-          Hit
+          Send
         </button>
       </div>
     </div>
